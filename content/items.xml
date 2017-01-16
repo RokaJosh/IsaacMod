@@ -1,0 +1,4 @@
+<items gfxroot="gfx/items/" version="1">
+  <passive cache="damage speed" description="Follow in his footsteps" gfx="collectibles_legacy.png" name="Dad's Legacy" />
+  <active description="Better than the head" gfx="collectibles_krampus_horn.png" name="Krampuses Horn" maxcharges="8" />
+</items>
