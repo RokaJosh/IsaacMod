@@ -3,4 +3,5 @@
   <active description="Better than the head" gfx="collectibles_krampus_horn.png" name="Krampuses Horn" maxcharges="8" />
   <active description="Red Baby?" gfx="collectibles_shart.png" name="The Shart" maxcharges="1" />
   <active description="Wealth in the unfortunate" gfx="collectibles_bhope.png" name="Beggar's Hope" maxcharges="4" />
+  <passive description="Everything in moderation" gfx="three_leaf.png" name="Three Leaf Clover" />
 </items>
