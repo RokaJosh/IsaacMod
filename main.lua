@@ -10,6 +10,8 @@ local krampus_horn = Isaac.GetItemIdByName( "Krampuses Horn" )
 local shart = Isaac.GetItemIdByName( "The Shart" )
 local bhope = Isaac.GetItemIdByName("Beggar's Hope")
 local philID = Isaac.GetCardIdByName("Philosopher's Stone")
+local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
+local threeLeafused = false
 
 --Timing--
 function discord:updateFrame() 
@@ -40,6 +42,16 @@ function discord:cache(p, flag)
   if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_DAMAGE then
     player.Damage = player.Damage + 2
   end 
+end
+
+function discord:threeLeafEffect()
+    local player=Isaac.GetPlayer(0)
+    if player:HasCollectible(threeLeaf) and threeLeafused == false  then
+        player:AddBombs(33)
+        player:AddKeys(33)
+        player:AddCoins(33)
+        threeLeafused = true
+    end
 end
 
 --Active Items--
@@ -89,6 +101,7 @@ return true
 end
 
 --Callbacks--
+discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect)
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_shart, shart);
