@@ -1,0 +1,82 @@
+<ItemPools>
+    <Pool Name="treasure">
+    </Pool>
+ 
+    <Pool Name="shop">
+    </Pool>
+ 
+    <Pool Name="boss">
+        <Item Name="Dad's Legacy" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+    </Pool>
+ 
+    <Pool Name="devil">
+		<Item Name="Krampuses Horn" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+    </Pool>
+ 
+    <Pool Name="angel">
+    </Pool>
+ 
+    <Pool Name="secret">
+    </Pool>
+ 
+    <Pool Name="library">
+    </Pool>
+ 
+    <Pool Name="challenge">
+    </Pool>
+ 
+    <Pool Name="goldenChest">
+    </Pool>
+ 
+    <Pool Name="redChest">
+    </Pool>
+ 
+    <Pool Name="beggar">
+    </Pool>
+ 
+    <Pool Name="demonBeggar">
+    </Pool>
+ 
+    <Pool Name="curse">
+    </Pool>
+ 
+    <Pool Name="keyMaster">
+    </Pool>
+ 
+    <Pool Name="bossrush">
+    </Pool>
+ 
+    <Pool Name="dungeon">
+    </Pool>
+ 
+    <Pool Name="greedTreasure">
+    </Pool>
+ 
+    <Pool Name="greedBoss">
+    </Pool>
+ 
+    <Pool Name="greedShop">
+		<Item Name="Beggar's Hope" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+    </Pool>
+ 
+    <Pool Name="greedCurse">
+    </Pool>
+ 
+    <Pool Name="greedDevil">
+    </Pool>
+ 
+    <Pool Name="greedAngel">
+    </Pool>
+ 
+    <Pool Name="greedLibrary">
+    </Pool>
+ 
+    <Pool Name="greedSecret">
+    </Pool>
+ 
+    <Pool Name="greedGoldenChest">
+    </Pool>
+   
+    <Pool Name="bombBum">
+    </Pool>
+</ItemPools>

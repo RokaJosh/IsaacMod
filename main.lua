@@ -9,9 +9,11 @@ local legacy_item = Isaac.GetItemIdByName( "Dad's Legacy" )
 local krampus_horn = Isaac.GetItemIdByName( "Krampuses Horn" )
 local shart = Isaac.GetItemIdByName( "The Shart" )
 local bhope = Isaac.GetItemIdByName("Beggar's Hope")
-local philID = Isaac.GetCardIdByName("Philosopher's Stone")
 local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
 local threeLeafused = false
+
+--Pickups--
+local philId = Isaac.GetCardIdByName("Philosopher's Stone")
 
 --Timing--
 function discord:updateFrame() 
@@ -28,8 +30,17 @@ function discord:updateFrame()
 end
 
 --Card Effects--
-function discord:CardCallBack(cardId)
-	--if cardId == philID then	
+function discord:CardCallback(cardId)
+   if cardId == philId then
+        local entities = Isaac.GetRoomEntities()
+        for i = 1, #entities do
+            if entities[i].Variant == PickupVariant.PICKUP_COIN and entities[i].SubType == CoinSubType.COIN_PENNY then
+                pos = entities[i].Position
+                entities[i]:Remove();
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL, pos, Vector(0, 0), Isaac.GetPlayer(0));
+            end
+        end
+    end
 end
 
 --Passive Items--
@@ -105,5 +116,6 @@ discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect)
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_shart, shart);
+discord:AddCallback(ModCallbacks.MC_USE_CARD, discord.CardCallback, philId);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_bhope, bhope);
 discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.updateFrame);
