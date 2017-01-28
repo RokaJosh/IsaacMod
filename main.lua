@@ -99,10 +99,13 @@ function discord:use_shart()
 	end
 return true
 end
+
 --Dark Plushie
 function discord:use_dplush()
-    local player = Isaac.GetPlayer(0)
-    player.AddMaxHearts(-1)
+    local player = Isaac.GetPlayer(0);
+    player:AddMaxHearts(-2,true)
+    player:AddCard(Card.CARD_JOKER);
+end
 
 
 --Beggar's Hope--
@@ -118,9 +121,9 @@ return true
 end
 
 --Callbacks--
-discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect)
+discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect);
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
-discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_dplush, dark_plushie)
+discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_dplush, dplush);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_shart, shart);
 discord:AddCallback(ModCallbacks.MC_USE_CARD, discord.CardCallback, philId);
