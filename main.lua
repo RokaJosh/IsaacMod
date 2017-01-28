@@ -10,6 +10,7 @@ local krampus_horn = Isaac.GetItemIdByName( "Krampuses Horn" )
 local shart = Isaac.GetItemIdByName( "The Shart" )
 local bhope = Isaac.GetItemIdByName("Beggar's Hope")
 local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
+local dplush = Isaac.GetItemIdByName("Dark Plushie")
 local threeLeafused = false
 
 --Pickups--
@@ -98,6 +99,11 @@ function discord:use_shart()
 	end
 return true
 end
+--Dark Plushie
+function discord:use_dplush()
+    local player = Isaac.GetPlayer(0)
+    player.AddMaxHearts(-1)
+
 
 --Beggar's Hope--
 function discord:use_bhope()
@@ -114,6 +120,7 @@ end
 --Callbacks--
 discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect)
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
+discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_dplush, dark_plushie)
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_shart, shart);
 discord:AddCallback(ModCallbacks.MC_USE_CARD, discord.CardCallback, philId);
