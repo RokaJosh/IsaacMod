@@ -6,4 +6,5 @@
   <active description="Provides power" gfx="collectibles_dplush.png" name="Dark Plushie" maxcharges="0" />
   <passive description="Everything in moderation" gfx="collectibles_threeleaf.png" name="Three Leaf Clover" />
   <passive cache="luck speed" description="Ouch" gfx="collectibles_redbrick.png" name ="Red Brick" />
+  <passive cache="tearflag" description="Open your mind's eye" gfx="collectibles_mindseye.png" name="Mind's eye" />
 </items>

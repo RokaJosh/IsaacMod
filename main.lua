@@ -1,4 +1,4 @@
-StartDebug()
+
 local discord = RegisterMod("Discord Mod", 1)
 local game = Game()
 local frameCounter = 0;
@@ -13,7 +13,10 @@ local bhope = Isaac.GetItemIdByName("Beggar's Hope")
 local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
 local dplush = Isaac.GetItemIdByName("Dark Plushie")
 local redbrick = Isaac.GetItemIdByName("Red Brick")
+local mindseye = Isaac.GetItemIdByName("Mind's Eye")
 local threeLeafused = false
+local mindsEyeused = false
+
 
 --Pickups--
 local philId = Isaac.GetCardIdByName("Philosopher's Stone")
@@ -63,8 +66,19 @@ function discord:cache(p, flag)
   if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_LUCK then
     player.Luck = player.Luck - 1.0
   end
+  if player:HasCollectible(mindseye) and flag == CacheFlag.CACHE_TEARFLAG then
+    player.TearFlags = player.TearFlags + TearFlags.FLAG_SPECTRAL
+  end
 end
 
+function discord:mindseyeeffect()
+  local player = Isaac.GetPlayer(0)
+  if player:HasCollectible(mindseye) and mindsEyeused == false then
+    player:AddSoulHearts(4)
+    player:AddCard(Card.CARD_WORLD)
+    mindsEyeused = true
+  end
+end
 
 function discord:threeLeafEffect()
     local player=Isaac.GetPlayer(0)
@@ -132,6 +146,7 @@ end
 
 --Callbacks--
 discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect);
+discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.mindseyeeffect)
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_dplush, dplush);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
