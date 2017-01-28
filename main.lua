@@ -1,3 +1,4 @@
+StartDebug()
 local discord = RegisterMod("Discord Mod", 1)
 local game = Game()
 local frameCounter = 0;
@@ -11,6 +12,7 @@ local shart = Isaac.GetItemIdByName( "The Shart" )
 local bhope = Isaac.GetItemIdByName("Beggar's Hope")
 local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
 local dplush = Isaac.GetItemIdByName("Dark Plushie")
+local redbrick = Isaac.GetItemIdByName("Red Brick")
 local threeLeafused = false
 
 --Pickups--
@@ -47,14 +49,22 @@ end
 --Passive Items--
 function discord:cache(p, flag)
   local player = Isaac.GetPlayer(0)
-  
+  --Dad's Legacy--
   if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_SPEED then
     player.MoveSpeed = player.MoveSpeed + 0.3
   end
   if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_DAMAGE then
     player.Damage = player.Damage + 2
   end 
+  --Red Brick--
+  if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_SPEED then
+    player.MoveSpeed = player.MoveSpeed + 0.5
+  end
+  if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_LUCK then
+    player.Luck = player.Luck - 1.0
+  end
 end
+
 
 function discord:threeLeafEffect()
     local player=Isaac.GetPlayer(0)

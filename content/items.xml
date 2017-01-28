@@ -5,4 +5,5 @@
   <active description="Wealth in the unfortunate" gfx="collectibles_bhope.png" name="Beggar's Hope" maxcharges="6" />
   <active description="Provides power" gfx="collectibles_dplush.png" name="Dark Plushie" maxcharges="0" />
   <passive description="Everything in moderation" gfx="collectibles_threeleaf.png" name="Three Leaf Clover" />
+  <passive cache="luck speed" description="Ouch" gfx="collectibles_redbrick.png" name ="Red Brick" />
 </items>
