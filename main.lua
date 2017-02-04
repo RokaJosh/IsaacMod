@@ -1,3 +1,4 @@
+
 local discord = RegisterMod("Discord Mod", 1)
 local game = Game()
 local frameCounter = 0;
@@ -10,7 +11,12 @@ local krampus_horn = Isaac.GetItemIdByName( "Krampuses Horn" )
 local shart = Isaac.GetItemIdByName( "The Shart" )
 local bhope = Isaac.GetItemIdByName("Beggar's Hope")
 local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
+local dplush = Isaac.GetItemIdByName("Dark Plushie")
+local redbrick = Isaac.GetItemIdByName("Red Brick")
+local mindseye = Isaac.GetItemIdByName("Mind's Eye")
 local threeLeafused = false
+local mindsEyeused = false
+
 
 --Pickups--
 local philId = Isaac.GetCardIdByName("Philosopher's Stone")
@@ -46,13 +52,32 @@ end
 --Passive Items--
 function discord:cache(p, flag)
   local player = Isaac.GetPlayer(0)
-  
+  --Dad's Legacy--
   if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_SPEED then
     player.MoveSpeed = player.MoveSpeed + 0.3
   end
   if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_DAMAGE then
     player.Damage = player.Damage + 2
   end 
+  --Red Brick--
+  if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_SPEED then
+    player.MoveSpeed = player.MoveSpeed + 0.5
+  end
+  if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_LUCK then
+    player.Luck = player.Luck - 1.0
+  end
+  if player:HasCollectible(mindseye) and flag == CacheFlag.CACHE_TEARFLAG then
+    player.TearFlags = player.TearFlags + TearFlags.FLAG_SPECTRAL
+  end
+end
+
+function discord:mindseyeeffect()
+  local player = Isaac.GetPlayer(0)
+  if player:HasCollectible(mindseye) and mindsEyeused == false then
+    player:AddSoulHearts(4)
+    player:AddCard(Card.CARD_WORLD)
+    mindsEyeused = true
+  end
 end
 
 function discord:threeLeafEffect()
@@ -99,6 +124,14 @@ function discord:use_shart()
 return true
 end
 
+--Dark Plushie
+function discord:use_dplush()
+    local player = Isaac.GetPlayer(0);
+    player:AddMaxHearts(-2,true)
+    player:AddCard(Card.CARD_JOKER);
+end
+
+
 --Beggar's Hope--
 function discord:use_bhope()
 	local room = Game():GetRoom()
@@ -112,8 +145,10 @@ return true
 end
 
 --Callbacks--
-discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect)
+discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect);
+discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.mindseyeeffect)
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
+discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_dplush, dplush);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_shart, shart);
 discord:AddCallback(ModCallbacks.MC_USE_CARD, discord.CardCallback, philId);
