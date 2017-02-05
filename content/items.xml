@@ -1,10 +1,11 @@
 <items gfxroot="gfx/items/" version="1">
-  <passive cache="damage speed" description="Follow in his footsteps" gfx="collectibles_legacy.png" name="Dad's Legacy" />
-  <active description="Better than the head" gfx="collectibles_krampus_horn.png" name="Krampuses Horn" maxcharges="8" />
-  <active description="Red Baby?" gfx="collectibles_shart.png" name="The Shart" maxcharges="2" />
-  <active description="Wealth in the unfortunate" gfx="collectibles_bhope.png" name="Beggar's Hope" maxcharges="6" />
-  <active description="Provides power" gfx="collectibles_dplush.png" name="Dark Plushie" maxcharges="0" />
-  <passive description="Everything in moderation" gfx="collectibles_threeleaf.png" name="Three Leaf Clover" />
-  <passive cache="luck speed" description="Ouch" gfx="collectibles_redbrick.png" name ="Red Brick" />
-  <passive cache="tearflag" description="Open your mind's eye" gfx="collectibles_mindseye.png" name="Mind's eye" />
+	<passive cache="damage speed" description="Follow in his footsteps" gfx="collectibles_legacy.png" name="Dad's Legacy" />
+	<active description="Better than the head" gfx="collectibles_krampus_horn.png" name="Krampuses Horn" maxcharges="8" />
+	<active description="Red Baby?" gfx="collectibles_shart.png" name="The Shart" maxcharges="2" />
+	<active description="Wealth of the unfortunate" gfx="collectibles_bhope.png" name="Beggar's Hope" maxcharges="6" />
+	<passive description="Everything in moderation" gfx="collectibles_threeleaf.png" name="Three Leaf Clover" />
+	<active description="The cost of darkness" gfx="collectibles_plushie.png" name="Dark Plushie" maxcharges="0" />
+	<passive description="Mind your step" gfx="collectibles_redbrick.png" name="Red Brick" />
+	<passive cache="tearflag" description="See all" gfx="collectibles_mindeye.png" name="Mind's Eye" />
+	<active description="Chrysopoeia" gfx="collectibles_philStone.png" name="Philosopher's Stone" maxcharges="4" />
 </items>

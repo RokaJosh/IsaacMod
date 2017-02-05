@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <name>discord</name>
-    <directory>discord</directory>
-    <id>837601013</id>
-    <description>Ha Pathetic!</description>
-    <version>1.2</version>
+    <name>TBOI - Prebirth</name>
+    <directory>prebirth</directory>
+    <id>0</id>
+    <description>A whole new Isaac!</description>
+    <version>1.0</version>
     <visibility>Private</visibility>
     <tag id="Items"/>
 </metadata>

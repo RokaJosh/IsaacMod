@@ -1,5 +1,6 @@
 <ItemPools>
     <Pool Name="treasure">
+		<Item Name="The Shart" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
  
     <Pool Name="shop">
@@ -17,6 +18,7 @@
     </Pool>
  
     <Pool Name="secret">
+		<Item Name="Three Leaf Clover" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
  
     <Pool Name="library">

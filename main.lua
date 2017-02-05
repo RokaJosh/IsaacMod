@@ -1,9 +1,7 @@
-
-local discord = RegisterMod("Discord Mod", 1)
+local discord = RegisterMod("TBOI - Prebirth", 1)
 local game = Game()
 local frameCounter = 0;
 local lockPosition = false;
-
 
 --Items--
 local legacy_item = Isaac.GetItemIdByName( "Dad's Legacy" )
@@ -14,18 +12,15 @@ local threeLeaf = Isaac.GetItemIdByName("Three Leaf Clover")
 local dplush = Isaac.GetItemIdByName("Dark Plushie")
 local redbrick = Isaac.GetItemIdByName("Red Brick")
 local mindseye = Isaac.GetItemIdByName("Mind's Eye")
-local threeLeafused = false
-local mindsEyeused = false
-
-
---Pickups--
-local philId = Isaac.GetCardIdByName("Philosopher's Stone")
+local philId = Isaac.GetItemIdByName("Philosopher's Stone")
+local threeLeafUsed = false
+local mindsEyeUsed = false
 
 --Timing--
 function discord:updateFrame() 
     local player = Isaac.GetPlayer(0)
     if(lockPosition == true) then 
-        player:AddVelocity(Vector(-player.Velocity.X, -player.Velocity.Y)); -- apply negative velocity so player barely moves
+        player:AddVelocity(Vector(-player.Velocity.X, -player.Velocity.Y));
         frameCounter = frameCounter + 1;
         
         if(frameCounter >= 20) then
@@ -35,58 +30,55 @@ function discord:updateFrame()
     end
 end
 
---Card Effects--
-function discord:CardCallback(cardId)
-   if cardId == philId then
-        local entities = Isaac.GetRoomEntities()
-        for i = 1, #entities do
-            if entities[i].Variant == PickupVariant.PICKUP_COIN and entities[i].SubType == CoinSubType.COIN_PENNY then
-                pos = entities[i].Position
-                entities[i]:Remove();
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL, pos, Vector(0, 0), Isaac.GetPlayer(0));
-            end
-        end
-    end
-end
-
 --Passive Items--
 function discord:cache(p, flag)
-  local player = Isaac.GetPlayer(0)
-  --Dad's Legacy--
-  if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_SPEED then
-    player.MoveSpeed = player.MoveSpeed + 0.3
-  end
-  if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_DAMAGE then
-    player.Damage = player.Damage + 2
-  end 
-  --Red Brick--
-  if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_SPEED then
-    player.MoveSpeed = player.MoveSpeed + 0.5
-  end
-  if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_LUCK then
-    player.Luck = player.Luck - 1.0
-  end
-  if player:HasCollectible(mindseye) and flag == CacheFlag.CACHE_TEARFLAG then
-    player.TearFlags = player.TearFlags + TearFlags.FLAG_SPECTRAL
-  end
+	local player = Isaac.GetPlayer(0)
+  
+	--Dad's Legacy--
+	if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_SPEED then
+		player.MoveSpeed = player.MoveSpeed + 0.3
+	end
+	if player:HasCollectible(legacy_item) and flag == CacheFlag.CACHE_DAMAGE then
+		player.Damage = player.Damage + 2
+	end 
+
+	--Red Brick--
+	if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_SPEED then
+		player.MoveSpeed = player.MoveSpeed + 0.4
+	end
+	if player:HasCollectible(redbrick) and flag == CacheFlag.CACHE_LUCK then
+		player.Luck = player.Luck - 0.5
+	end
+	
+	--Mind's Eye--
+	function getFlag(arr, currentFlag)
+		number = currentFlag;
+   
+		for i = 1, #arr do
+			number = number | 2^(arr[i] - 1);
+		end
+   
+		return number;
+	end
+
+	if player:HasCollectible(mindseye) and mindsEyeUsed == false then
+		if (cacheFlag == CacheFlag.CACHE_TEARFLAG) then
+			player.TearFlags = getFlag({1}, player.TearFlags);
+		end
+		player:AddSoulHearts(4)
+		player:AddCard(Card.CARD_WORLD)
+		mindsEyeUsed = true
+	end
 end
 
-function discord:mindseyeeffect()
-  local player = Isaac.GetPlayer(0)
-  if player:HasCollectible(mindseye) and mindsEyeused == false then
-    player:AddSoulHearts(4)
-    player:AddCard(Card.CARD_WORLD)
-    mindsEyeused = true
-  end
-end
-
-function discord:threeLeafEffect()
-    local player=Isaac.GetPlayer(0)
-    if player:HasCollectible(threeLeaf) and threeLeafused == false  then
+--Three Leaf Clover--
+function discord:threeLeaf_Effect()
+	local player=Isaac.GetPlayer(0)
+    if player:HasCollectible(threeLeaf) and threeLeafUsed == false  then
         player:AddBombs(33)
         player:AddKeys(33)
         player:AddCoins(33)
-        threeLeafused = true
+        threeLeafUsed = true
     end
 end
 
@@ -105,6 +97,25 @@ function discord:use_krampus_horn()
     end
 return true
 end
+
+--Philosopher's Stone--
+function discord:use_philStone()
+	local entities = Isaac.GetRoomEntities()
+    for i = 1, #entities do
+        if entities[i].Variant == PickupVariant.PICKUP_COIN and entities[i].SubType == CoinSubType.COIN_PENNY then
+            pos = entities[i].Position
+            entities[i]:Remove();
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL, pos, Vector(0, 0), Isaac.GetPlayer(0));
+        end
+
+        if entities[i].Variant == PickupVariant.PICKUP_COIN and entities[i].SubType == CoinSubType.COIN_NICKEL then
+            pos = entities[i].Position
+            entities[i]:Remove();
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_DIME, pos, Vector(0, 0), Isaac.GetPlayer(0));
+        end
+    end
+return true
+end 
 
 --The Shart--
 function discord:use_shart()
@@ -128,7 +139,7 @@ end
 function discord:use_dplush()
     local player = Isaac.GetPlayer(0);
     player:AddMaxHearts(-2,true)
-    player:AddCard(Card.CARD_JOKER);
+    player:UseCard(Cards.JOKER_CARD)
 end
 
 
@@ -145,12 +156,11 @@ return true
 end
 
 --Callbacks--
-discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeafEffect);
-discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.mindseyeeffect)
+discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.threeLeaf_Effect);
 discord:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, discord.cache);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_dplush, dplush);
+discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_philStone, philId);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_krampus_horn, krampus_horn);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_shart, shart);
-discord:AddCallback(ModCallbacks.MC_USE_CARD, discord.CardCallback, philId);
 discord:AddCallback(ModCallbacks.MC_USE_ITEM, discord.use_bhope, bhope);
 discord:AddCallback(ModCallbacks.MC_POST_UPDATE, discord.updateFrame);
